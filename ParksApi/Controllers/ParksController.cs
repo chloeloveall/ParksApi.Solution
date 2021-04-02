@@ -33,7 +33,7 @@ namespace ParksApi.Controllers
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Park>> GetParks(int id)
+    public async Task<ActionResult<Park>> GetPark(int id)
     {
       var park = await _db.Parks.FindAsync(id);
       if (park == null)
@@ -41,6 +41,14 @@ namespace ParksApi.Controllers
         return NotFound();
       }
       return park;
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<Park>> Post(Park park)
+    {
+      _db.Parks.Add(park);
+      await _db.SaveChangesAsync();
+      return CreatedAtAction(nameof(GetPark), new { id = park.ParkId }, park);
     }
 
   }
