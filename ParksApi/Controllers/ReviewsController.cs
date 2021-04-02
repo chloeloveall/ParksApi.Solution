@@ -69,5 +69,31 @@ namespace ParksApi.Controllers
       return CreatedAtAction(nameof(GetReview), new { id = review.ParkId }, thisPark );
     }
 
+    [HttpPut ("{id}")]
+    public async Task<IActionResult> Put(int id, Review review)
+    {
+      if(id != review.ReviewId)
+      {
+        return BadRequest();
+      }
+      _db.Entry(review).State = EntityState.Modified;
+      try
+      {
+        await _db.SaveChangesAsync();
+      }
+      catch (DbUpdateConcurrencyException)
+      {
+        if(!ReviewExists(id))
+        {
+          return NotFound();
+        }
+        else
+        {
+          throw;
+        }
+      }
+      return NoContent();
+    }
+
   }
 }
