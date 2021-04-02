@@ -18,22 +18,12 @@ namespace ParksApi
   {
     public Startup(IConfiguration configuration)
     {
-        Configuration = configuration;
+      Configuration = configuration;
     }
 
     public IConfiguration Configuration { get; }
 
     // This method gets called by the runtime. Use this method to add services to the container.
-    // public void ConfigureServices(IServiceCollection services)
-    // {
-
-    //     services.AddControllers();
-    //     services.AddSwaggerGen(c =>
-    //     {
-    //         c.SwaggerDoc("v1", new OpenApiInfo { Title = "ParksApi", Version = "v1" });
-    //     });
-    // }
-
     public void ConfigureServices(IServiceCollection services)
     {
       services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
@@ -44,9 +34,9 @@ namespace ParksApi
         options.UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
 
       services.AddAuthentication(options => {
-          options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-          options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-          options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
       })
 
       .AddJwtBearer(jwt => {
@@ -54,22 +44,22 @@ namespace ParksApi
 
         jwt.SaveToken = true;
         jwt.TokenValidationParameters = new TokenValidationParameters {
-            ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(key),
-            ValidateIssuer = false,
-            ValidateAudience = false,
-            ValidateLifetime = true,
-            RequireExpirationTime = false
+          ValidateIssuerSigningKey = true,
+          IssuerSigningKey = new SymmetricSecurityKey(key),
+          ValidateIssuer = false,
+          ValidateAudience = false,
+          ValidateLifetime = true,
+          RequireExpirationTime = false
         };
       });
 
       services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-          .AddEntityFrameworkStores<ParksApiContext>();
+        .AddEntityFrameworkStores<ParksApiContext>();
 
       services.AddControllers();
       services.AddSwaggerGen(c =>
       {
-          c.SwaggerDoc("v1", new OpenApiInfo { Title = "ParksApi", Version = "v1" });
+        c.SwaggerDoc("v1", new OpenApiInfo { Title = "ParksApi", Version = "v1" });
       });
       // services.AddApiVersioning(o => {
       //   o.ReportApiVersions = true;
@@ -83,9 +73,9 @@ namespace ParksApi
     {
       if (env.IsDevelopment())
       {
-          app.UseDeveloperExceptionPage();
-          app.UseSwagger();
-          app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ParksApi v1"));
+        app.UseDeveloperExceptionPage();
+        app.UseSwagger();
+        app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ParksApi v1"));
       }
 
       app.UseHttpsRedirection();
@@ -98,7 +88,7 @@ namespace ParksApi
 
       app.UseEndpoints(endpoints =>
       {
-          endpoints.MapControllers();
+        endpoints.MapControllers();
       });
     }
   }
