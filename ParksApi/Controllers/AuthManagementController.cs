@@ -10,8 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using ParksApi.Configuration;
-// using ParksApi.Models.DTOs.Requests;
-// using ParksApi.Models.DTOs.Responses;
+using ParksApi.Models.DTOs.Requests;
+using ParksApi.Models.DTOs.Responses;
 
 namespace ParksApi.Controllers
 {
@@ -28,6 +28,51 @@ namespace ParksApi.Controllers
     {
       _userManager = userManager;
       _jwtConfig = optionsMonitor.CurrentValue;
+    }
+
+    [HttpPost]
+    [Route("Register")]
+    public async Task<IActionResult> Register([FromBody] UserRegistrationDto user)
+    {
+      if(ModelState.IsValid)
+      {
+        // We can utilise the model
+        var existingUser = await _userManager.FindByEmailAsync(user.Email);
+
+        if(existingUser != null)
+        {
+          return BadRequest(new RegistrationResponse(){
+                  Errors = new List<string>() {
+                    "Email already in use"
+                  },
+                  Result = false
+          });
+        }
+
+        var newUser = new IdentityUser() { Email = user.Email, UserName = user.Username};
+        var isCreated = await _userManager.CreateAsync(newUser, user.Password);
+        if(isCreated.Succeeded)
+        {
+          var jwtToken =  GenerateJwtToken( newUser);
+
+          return Ok(new RegistrationResponse() {
+              Result = true,
+              Token = jwtToken
+          });
+        } else {
+            return BadRequest(new RegistrationResponse(){
+                    Errors = isCreated.Errors.Select(x => x.Description).ToList(),
+                    Result = false
+            });
+        }
+      }
+
+      return BadRequest(new RegistrationResponse(){
+              Errors = new List<string>() {
+                  "Invalid payload"
+              },
+              Result = false
+      });
     }
 
   }
