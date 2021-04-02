@@ -32,5 +32,16 @@ namespace ParksApi.Controllers
       return await query.ToListAsync();
     }
 
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Park>> GetParks(int id)
+    {
+      var park = await _db.Parks.FindAsync(id);
+      if (park == null)
+      {
+        return NotFound();
+      }
+      return park;
+    }
+
   }
 }
