@@ -22,12 +22,12 @@ namespace ParksApi.Controllers
     }
 
     [HttpGet("all")]
-    public async Task<ActionResult<IEnumerable<Park>>> Get(string state)
+    public async Task<ActionResult<IEnumerable<Park>>> Get(string parkState)
     {
       var query = _db.Parks.Include(entry => entry.Reviews).AsQueryable();
-      if (state != null)
+      if (parkState != null)
       {
-        query = query.Where(entry => entry.State == state);
+        query = query.Where(entry => entry.ParkState == parkState);
       }
       return await query.ToListAsync();
     }
@@ -49,6 +49,32 @@ namespace ParksApi.Controllers
       _db.Parks.Add(park);
       await _db.SaveChangesAsync();
       return CreatedAtAction(nameof(GetPark), new { id = park.ParkId }, park);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> Put(int id, Park park)
+    {
+      if (id != park.ParkId)
+      {
+        return BadRequest();
+      }
+      _db.Entry(park).State = EntityState.Modified;
+      try
+      {
+        await _db.SaveChangesAsync();
+      }
+      catch (DbUpdateConcurrencyException)
+      {
+        if(!ParkExists(id))
+        {
+          return NotFound();
+        }
+        else
+        {
+          throw;
+        }
+      }
+      return NoContent();
     }
 
   }
