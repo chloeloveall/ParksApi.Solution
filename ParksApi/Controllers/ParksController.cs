@@ -77,5 +77,10 @@ namespace ParksApi.Controllers
       return NoContent();
     }
 
+    private bool ParkExists(int id)
+    {
+      return _db.Parks.Any(e => e.ParkId == id);
+    }
+
   }
 }
