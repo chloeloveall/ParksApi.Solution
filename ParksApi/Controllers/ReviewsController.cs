@@ -95,5 +95,10 @@ namespace ParksApi.Controllers
       return NoContent();
     }
 
+    private bool ReviewExists(int id)
+    {
+      return _db.Reviews.Any(e => e.ReviewId == id);
+    }
+
   }
 }
