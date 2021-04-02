@@ -21,5 +21,16 @@ namespace ParksApi.Controllers
       _db = db;
     }
 
+    [HttpGet("all")]
+    public async Task<ActionResult<IEnumerable<Park>>> Get(string state)
+    {
+      var query = _db.Parks.Include(entry => entry.Reviews).AsQueryable();
+      if (state != null)
+      {
+        query = query.Where(entry => entry.State == state);
+      }
+      return await query.ToListAsync();
+    }
+
   }
 }
