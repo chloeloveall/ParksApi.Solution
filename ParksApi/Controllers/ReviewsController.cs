@@ -51,5 +51,23 @@ namespace ParksApi.Controllers
       return review;
     }
 
+    [HttpPost("{parkid}/createreview")]
+    public async Task<ActionResult<Review>> Post(Review review, int parkId)
+    {
+      var thisPark = _db.Parks.Include(entry => entry.Reviews).FirstOrDefault(entry => entry.ParkId == parkId);
+      if (thisPark != null)
+      {
+        review.ParkId = thisPark.ParkId;
+        thisPark.Reviews.Add(review);
+        _db.Parks.Update(thisPark);
+        await _db.SaveChangesAsync();
+      }
+      else
+      {
+        return BadRequest();
+      }
+      return CreatedAtAction(nameof(GetReview), new { id = review.ParkId }, thisPark );
+    }
+
   }
 }
