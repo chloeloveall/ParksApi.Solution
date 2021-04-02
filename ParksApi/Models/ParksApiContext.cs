@@ -1,8 +1,9 @@
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ParksApi.Models
 {
-  public class ParksApiContext : DbContext
+  public class ParksApiContext : IdentityDbContext
   {
     public ParksApiContext(DbContextOptions<ParksApiContext> options) : base(options) { }
     
