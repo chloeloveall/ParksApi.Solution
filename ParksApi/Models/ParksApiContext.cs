@@ -12,6 +12,8 @@ namespace ParksApi.Models
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+      base.OnModelCreating(builder);
+
       builder.Entity<Park>()
         .HasData(
           new Park { ParkId = 1, ParkName = "Yellowstone National Park", ParkState = "Wyoming", ParkDescription = "Yellowstone National Park is a nearly 3,500-sq.-mile wilderness recreation area atop a volcanic hot spot. Mostly in Wyoming, the park spreads into parts of Montana and Idaho too. Yellowstone features dramatic canyons, alpine rivers, lush forests, hot springs and gushing geysers, including its most famous, Old Faithful. It's also home to hundreds of animal species, including bears, wolves, bison, elk and antelope.", ParkCategory = "National" },
