@@ -11,6 +11,7 @@ using ParksApi.Models;
 using ParksApi.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 
 namespace ParksApi
 {
@@ -61,11 +62,11 @@ namespace ParksApi
       {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "ParksApi", Version = "v1" });
       });
-      // services.AddApiVersioning(o => {
-      //   o.ReportApiVersions = true;
-      //   o.AssumeDefaultVersionWhenUnspecified = true;
-      //   o.DefaultApiVersion = new ApiVersion(1, 0);
-      // });
+      services.AddApiVersioning(o => {
+        o.ReportApiVersions = true;
+        o.AssumeDefaultVersionWhenUnspecified = true;
+        o.DefaultApiVersion = new ApiVersion(2, 0);
+      });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
