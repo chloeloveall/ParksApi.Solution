@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ParksApi.Models
 {
@@ -9,7 +10,14 @@ namespace ParksApi.Models
       this.Reviews = new HashSet<Review>();
     }
     public int ParkId { get; set; }
-    public string State { get; set; }
+    [Required]
+    public string ParkName { get; set; }
+    [Required]
+    public string ParkState { get; set; }
+    [Required]
+    public string ParkDescription { get; set; }
+    [Required]
+    public string ParkCategory { get; set; } // state or national 
     public ICollection<Review> Reviews { get; set; }
   }
 }
