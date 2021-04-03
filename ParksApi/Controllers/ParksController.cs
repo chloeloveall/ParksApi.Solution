@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ParksApi.Controllers
 {
-  // [ApiVersionNeutral]
-  [Route("api/[controller]")]
+  [ApiVersion("1.0")]
+  [Route("api/{v:apiVersion}/parks")] 
   [ApiController]
   [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
   public class ParksController : ControllerBase
