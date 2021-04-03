@@ -22,12 +22,24 @@ namespace ParksApi.Controllers
     }
 
     [HttpGet("all")]
-    public async Task<ActionResult<IEnumerable<Park>>> Get(string parkState)
+    public async Task<ActionResult<IEnumerable<Park>>> Get(string parkName, string parkState, string parkDescription, string parkCategory)
     {
       var query = _db.Parks.Include(entry => entry.Reviews).AsQueryable();
+      if (parkName != null)
+      {
+        query = query.Where(entry => entry.ParkName == parkName);
+      }
       if (parkState != null)
       {
         query = query.Where(entry => entry.ParkState == parkState);
+      }
+      if (parkDescription != null)
+      {
+        query = query.Where(entry => entry.ParkDescription == parkDescription);
+      }
+      if (parkCategory != null)
+      {
+        query = query.Where(entry => entry.ParkCategory == parkCategory);
       }
       return await query.ToListAsync();
     }
