@@ -41,37 +41,45 @@ namespace ParksApi.Controllers
 
         if(existingUser != null)
         {
-          return BadRequest(new RegistrationResponse(){
-                  Errors = new List<string>() {
-                    "Email already in use"
-                  },
-                  Result = false
+          return BadRequest(new RegistrationResponse()
+          {
+            Errors = new List<string>() 
+            {
+              "Email already in use"
+            },
+            Result = false
           });
         }
 
-        var newUser = new IdentityUser() { Email = user.Email, UserName = user.Username};
+        var newUser = new IdentityUser() { Email = user.Email, UserName = user.Username };
         var isCreated = await _userManager.CreateAsync(newUser, user.Password);
         if(isCreated.Succeeded)
         {
-          var jwtToken =  GenerateJwtToken( newUser);
+          var jwtToken =  GenerateJwtToken(newUser);
 
-          return Ok(new RegistrationResponse() {
-              Result = true,
-              Token = jwtToken
+          return Ok(new RegistrationResponse() 
+          {
+            Result = true,
+            Token = jwtToken
           });
-        } else {
-            return BadRequest(new RegistrationResponse(){
-                    Errors = isCreated.Errors.Select(x => x.Description).ToList(),
-                    Result = false
-            });
+        } 
+        else 
+        {
+          return BadRequest(new RegistrationResponse()
+          {
+            Errors = isCreated.Errors.Select(x => x.Description).ToList(),
+            Result = false
+          });
         }
       }
 
-      return BadRequest(new RegistrationResponse(){
-              Errors = new List<string>() {
-                  "Invalid payload"
-              },
-              Result = false
+      return BadRequest(new RegistrationResponse()
+      {
+        Errors = new List<string>() 
+        {
+          "Invalid payload"
+        },
+        Result = false
       });
     }
 
@@ -83,39 +91,48 @@ namespace ParksApi.Controllers
       {
         var existingUser = await _userManager.FindByEmailAsync(user.Email);
 
-        if(existingUser == null) {
-          return BadRequest(new RegistrationResponse(){
-              Errors = new List<string>() {
-                  "Invalid login request"
-              },
-              Result = false
+        if(existingUser == null) 
+        {
+          return BadRequest(new RegistrationResponse()
+          {
+            Errors = new List<string>() 
+            {
+              "Invalid login request"
+            },
+            Result = false
           });
         }
 
         var isCorrect = await _userManager.CheckPasswordAsync(existingUser, user.Password);
 
-        if(!isCorrect) {
-          return BadRequest(new RegistrationResponse(){
-              Errors = new List<string>() {
-                  "Invalid login request"
-              },
-              Result = false
+        if(!isCorrect) 
+        {
+          return BadRequest(new RegistrationResponse()
+          {
+            Errors = new List<string>() 
+            {
+              "Invalid login request"
+            },
+            Result = false
           });
         }
 
         var jwtToken  =GenerateJwtToken(existingUser);
 
-        return Ok(new RegistrationResponse() {
-            Result = true,
-            Token = jwtToken
+        return Ok(new RegistrationResponse() 
+        {
+          Result = true,
+          Token = jwtToken
         });
       }
 
-      return BadRequest(new RegistrationResponse(){
-          Errors = new List<string>() {
-              "Invalid payload"
-          },
-          Result = false
+      return BadRequest(new RegistrationResponse()
+      {
+        Errors = new List<string>() 
+        {
+          "Invalid payload"
+        },
+        Result = false
       });
     }
 
@@ -129,10 +146,10 @@ namespace ParksApi.Controllers
       {
         Subject = new ClaimsIdentity(new []
         {
-            new Claim("Id", user.Id), 
-            new Claim(JwtRegisteredClaimNames.Email, user.Email),
-            new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+          new Claim("Id", user.Id), 
+          new Claim(JwtRegisteredClaimNames.Email, user.Email),
+          new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+          new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         }),
         Expires = DateTime.UtcNow.AddHours(6),
         SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
