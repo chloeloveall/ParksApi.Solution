@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 namespace ParksApi.Controllers
 {
   [ApiVersion("1.0")]
+  [ApiExplorerSettings(IgnoreApi = true)]
   [Route("api/{v:apiVersion}/parks")] 
   [ApiController]
   [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
