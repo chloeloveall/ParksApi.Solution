@@ -1,6 +1,6 @@
 ![Parks Api splash page screenshot](ParksApi/wwwroot/img/park-finder-header.png)
 
-# _Park Finder: Go out and explore!_
+# _Parks API: Go out and explore!_
 
 #### _An API that lists state parks, national parks and their associated reviews_
 
@@ -154,13 +154,19 @@ Installing .NET will provide provide access to the C# language
 ## API Documentation
 Explore the API endpoints in Postman or a browser. You will not be able to utilize authentication in a browser.
 
-### Versioning
+### Endpoints
 
+### Swagger 
+To explore the Park Finder API with [Swashbuckle and ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-5.0&tabs=visual-studio-code), launch the project using the terminal command ```dotnet run```, and choose one of the following:
+  * To access the formatted JSON, input the following URL in your browser of choice: ```http://localhost:5000/swagger/v1/swagger.json```
+  * To access the [Swagger UI](https://swagger.io/tools/swagger-ui/) as shown below, input the following URL in your browser of choice: ```http://localhost:5000/swagger```
+  * **NOTE**: The "Try It Out" feature is not currently enabled in the UI (authorization must be set up for this feature to work)
+
+![Parks API Swagger UI](ParksApi/wwwroot/img/parks-swagger-ui.png)
+### Versioning
 
 ### JWT Token Based Authentication
 
-### Swagger 
-To explore the Park Finder API with Swagger, launch the project using the terminal command ```dotnet run```, and input the following URL into your browser: ```http://localhost:5000/swagger```
 
 ## User Stories
 
