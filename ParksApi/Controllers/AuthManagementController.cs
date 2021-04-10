@@ -30,6 +30,7 @@ namespace ParksApi.Controllers
       _jwtConfig = optionsMonitor.CurrentValue;
     }
 
+    // endpoint: http://localhost:5000/api/AuthManagement/Register
     [HttpPost]
     [Route("Register")]
     public async Task<IActionResult> Register([FromBody] UserRegistrationDto user)
@@ -83,6 +84,7 @@ namespace ParksApi.Controllers
       });
     }
 
+    // http://localhost:5000/api/AuthManagement/Login
     [HttpPost]
     [Route("Login")]
     public async Task<IActionResult> Login([FromBody] UserLoginRequest user)
