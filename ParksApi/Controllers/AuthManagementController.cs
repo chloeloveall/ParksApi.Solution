@@ -37,7 +37,6 @@ namespace ParksApi.Controllers
     {
       if(ModelState.IsValid)
       {
-        // We can utilise the model
         var existingUser = await _userManager.FindByEmailAsync(user.Email);
 
         if(existingUser != null)
@@ -84,7 +83,7 @@ namespace ParksApi.Controllers
       });
     }
 
-    // http://localhost:5000/api/AuthManagement/Login
+    // endpoint: http://localhost:5000/api/AuthManagement/Login
     [HttpPost]
     [Route("Login")]
     public async Task<IActionResult> Login([FromBody] UserLoginRequest user)
