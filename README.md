@@ -156,6 +156,61 @@ Explore the API endpoints in Postman or a browser. You will not be able to utili
 
 ### Endpoints
 
+Base URL: ```http://localhost:5000/```
+
+#### HTTP Request Structure
+```
+GET /api/{component}
+POST /api/{component}
+GET /api/{component}/{id}
+PUT /api/{component}/{id}
+DELETE /api/{component}/{id}
+```
+#### Example Query
+```
+https://localhost:5000/api/2.0/parks/3
+```
+#### Sample JSON Response
+```
+{
+  "parkId": 2,
+  "parkName": "Yosemite National Park",
+  "parkState": "California",
+  "parkDescription": "Yosemite National Park is in California’s Sierra Nevada mountains. It’s famed for its giant, ancient sequoia trees, and for Tunnel View, the iconic vista of towering Bridalveil Fall and the granite cliffs of El Capitan and Half Dome. In Yosemite Village are shops, restaurants, lodging, the Yosemite Museum and the Ansel Adams Gallery, with prints of the photographer’s renowned black-and-white landscapes of the area.",
+  "parkCategory": "National",
+  "reviews": []
+}
+```
+
+#### Auth Management
+```
+POST /api/authmanagement/register
+POST /api/authmanagement/login
+```
+#### Parks Version 2.0 (Most Recent Version)
+```
+GET /api/2.0/parks
+POST /api/2.0/parks
+GET /api/2.0/parks/{id}
+PUT /api/2.0/parks/{id}
+DELETE /api/2.0/parks/{id}
+```
+#### Parks Version 1.0
+```
+GET /api/1.0/parks/all
+POST /api/1.0/parks
+GET /api/1.0/parks/{id}
+PUT /api/1.0/parks/{id}
+DELETE /api/1.0/parks/{id}
+```
+#### Reviews
+```
+GET /api/reviews
+POST /api/reviews/{parkid}/createreview
+GET /api/reviews/{id}
+PUT /api/reviews/{id}
+DELETE /api/reviews/{id}
+```
 ### Swagger 
 To explore the Park Finder API with [Swashbuckle and ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-5.0&tabs=visual-studio-code), launch the project using the terminal command ```dotnet run```, and choose one of the following:
   * To access the formatted JSON, input the following URL in your browser of choice: ```http://localhost:5000/swagger/v1/swagger.json```
@@ -164,6 +219,16 @@ To explore the Park Finder API with [Swashbuckle and ASP.NET Core](https://docs.
 
 ![Parks API Swagger UI](ParksApi/wwwroot/img/parks-swagger-ui.png)
 ### Versioning
+A versioning strategy allows clients to continue using the existing REST API and migrate their applications to the newer API when they are ready. This can be done in various ways, but in this application it is implemented by altering the URL path. The endpoints for the Parks Controller version are included above.
+
+#### Versioning Path Examples
+```
+Version 2.0
+https://localhost:5000/api/2.0/parks/3
+
+Version 1.0
+https://localhost:5000/api/1.0/parks/3
+```
 
 ### JWT Token Based Authentication
 
