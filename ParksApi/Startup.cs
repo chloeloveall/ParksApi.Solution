@@ -58,10 +58,12 @@ namespace ParksApi
         .AddEntityFrameworkStores<ParksApiContext>();
 
       services.AddControllers();
+      
       services.AddSwaggerGen(c =>
       {
         c.SwaggerDoc("v1", new OpenApiInfo { Title = "ParksApi", Version = "v1" });
       });
+
       services.AddApiVersioning(o => {
         o.ReportApiVersions = true;
         o.AssumeDefaultVersionWhenUnspecified = true;
