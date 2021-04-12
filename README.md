@@ -24,16 +24,21 @@
       * [MySQL Password Protection](#mysql-password-protection)
       * [Entity Framework Core Database Setup](#entity-framework-core-database-setup)
     * [Launching the Program](#launching-the-program)
-6. [User Stories](#user-stories)
-7. [Specifications](#specifications)
-8. [Known Bugs](#known-bugs)
-9. [Issues](#issues)
-10. [Roadmap](#roadmap)
-11. [Design](#design)
-12. [Contributing](#contributing)
-13. [License](#license)
-14. [Acknowledgements](#acknowledgements)
-15. [Contact Information](#contact-information)
+6. [API Documentation](#api-documentation)
+    * [Endpoints](#endpoints)
+    * [Swagger](#swagger)
+    * [Versioning](#versioning)
+    * [JWT Token Based Authentication](#jwt-token-based-authentication)
+7. [User Stories](#user-stories)
+8. [Specifications](#specifications)
+9. [Known Bugs](#known-bugs)
+10. [Issues](#issues)
+11. [Roadmap](#roadmap)
+12. [Design](#design)
+13. [Contributing](#contributing)
+14. [License](#license)
+15. [Acknowledgements](#acknowledgements)
+16. [Contact Information](#contact-information)
 
 ## Description
 
@@ -231,7 +236,11 @@ https://localhost:5000/api/1.0/parks/3
 ```
 
 ### JWT Token Based Authentication
+Authorization is the most common scenario for using [JSON Web Tokens](https://jwt.io/) (JWT). Once the user is logged in, each subsequent request will include the JWT, allowing the user to access routes, services, and resources that are permitted with that token.
 
+In this application, the user must be registered and logged in to access any of the routes or CRUD functionality (this will be updated at a later date to ease restrictions). However, at this time there are no restrictions implemented for who can register and log in.
+
+* When using Postman, both the registration and log in routes will generate a bearer token that can be used to access all routes and full CRUD functionality.
 
 ## User Stories
 
