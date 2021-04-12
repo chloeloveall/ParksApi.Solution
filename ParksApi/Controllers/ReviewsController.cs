@@ -20,6 +20,7 @@ namespace ParksApi.Controllers
       _db = db;
     }
 
+    // endpoint http://localhost:5000/api/reviews/
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Review>>> GetAction(int rating, string reviewTitle, string reviewBody)
     {
@@ -40,6 +41,7 @@ namespace ParksApi.Controllers
       return await query.ToListAsync();
     }
 
+    // endpoint http://localhost:5000/api/reviews/{id}
     [HttpGet("{id}")]
     public async Task<ActionResult<Review>> GetReview(int id)
     {
@@ -51,6 +53,7 @@ namespace ParksApi.Controllers
       return review;
     }
 
+    // endpoint http://localhost:5000/api/reviews/{parkid}/createreview
     [HttpPost("{parkid}/createreview")]
     public async Task<ActionResult<Review>> Post(Review review, int parkId)
     {
@@ -69,6 +72,7 @@ namespace ParksApi.Controllers
       return CreatedAtAction(nameof(GetReview), new { id = review.ParkId }, thisPark );
     }
 
+    // endpoint http://localhost:5000/api/reviews/{id}
     [HttpPut ("{id}")]
     public async Task<IActionResult> Put(int id, Review review)
     {
@@ -100,6 +104,7 @@ namespace ParksApi.Controllers
       return _db.Reviews.Any(e => e.ReviewId == id);
     }
 
+    // endpoint http://localhost:5000/api/reviews/{id}
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteReview(int id)
     {
