@@ -22,6 +22,7 @@ namespace ParksApi.Controllers
       _db = db;
     }
 
+    // endpoint http://localhost:5000/api/1.0/parks/all
     [HttpGet("all")]
     public async Task<ActionResult<IEnumerable<Park>>> Get(string parkName, string parkState, string parkDescription, string parkCategory)
     {
@@ -45,6 +46,7 @@ namespace ParksApi.Controllers
       return await query.ToListAsync();
     }
 
+    // endpoint http://localhost:5000/api/1.0/parks/{id}
     [HttpGet("{id}")]
     public async Task<ActionResult<Park>> GetPark(int id)
     {
@@ -56,6 +58,7 @@ namespace ParksApi.Controllers
       return park;
     }
 
+    // endpoint http://localhost:5000/api/1.0/parks/
     [HttpPost]
     public async Task<ActionResult<Park>> Post(Park park)
     {
@@ -64,6 +67,7 @@ namespace ParksApi.Controllers
       return CreatedAtAction(nameof(GetPark), new { id = park.ParkId }, park);
     }
 
+    // endpoint http://localhost:5000/api/1.0/parks/{id}
     [HttpPut("{id}")]
     public async Task<IActionResult> Put(int id, Park park)
     {
@@ -95,6 +99,7 @@ namespace ParksApi.Controllers
       return _db.Parks.Any(e => e.ParkId == id);
     }
 
+    // endpoint http://localhost:5000/api/1.0/parks/{id}
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeletePark(int id)
     {
